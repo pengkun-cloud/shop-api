@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+   例如namespace="com.szh.mapper.personMapper"就是com.szh.mapper(包名)+personMapper(personMapper.xml文件去除后缀) -->
+<mapper namespace="com.fh.memberShop.mapper.MemberShopMapper">
+    
+
+
+    <select id="queryMemberList" resultType="com.fh.memberShop.model.MemberShop">
+        select m.*, CONCAT_WS(' ',a.name,b.name,c.name) address from t_member_shop m left join t_member_address a on m.addressId1 = a.id
+                                                                                     left join t_member_address b on m.addressId2 = b.id
+                                                                                     left join t_member_address c on m.addressId3 = c.id;
+    </select>
+
+    <update id="updateAddressStatus">
+
+        update t_member_shop set status = 0;
+    </update>
+
+    <update id="updateAddress" parameterType="int">
+
+        update t_member_shop set status = 1 where id = #{id};
+    </update>
+
+
+</mapper>
