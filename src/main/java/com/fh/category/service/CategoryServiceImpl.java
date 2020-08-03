@@ -20,15 +20,15 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Map<String, Object>> queryList() {
-        List<Map<String, Object>> parentList = new ArrayList<>();
+        List<Map<String, Object>> parent = new ArrayList<>();
         List<Map<String, Object>> allList = categoryMapper.queryList();
         for (Map<String, Object> map : allList) {
             if(map.get("pid").equals(0)){
-                parentList.add(map);
+                parent.add(map);
             }
         }
-        selectChildrenList(parentList, allList);
-        return parentList;
+        selectChildrenList(parent, allList);
+        return parent;
     }
 
     public void selectChildrenList(List<Map<String, Object>> parentList,  List<Map<String, Object>> allList){
